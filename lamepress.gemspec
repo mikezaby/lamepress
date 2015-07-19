@@ -18,5 +18,11 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.3"
 
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "ransack"
+  s.add_dependency "mysql2", "0.3.17"
+  s.add_dependency "devise", "3.4.1"
+  s.add_dependency "paperclip"
+  s.add_dependency "kaminari"
+  s.add_dependency "cancancan"
+  s.add_dependency "nokogiri"
 end
