@@ -1,0 +1,31 @@
+<div class="panel-body">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: '/admin/partials/alerts', locals: { record: @block } %>
+      <%= form_for [:admin,@block], role: 'form' do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :placement %>
+          <%= f.select :placement, @block_placements, {}, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :mode %>
+          <%= f.text_field :mode, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :partial %>
+          <%= f.text_field :partial, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

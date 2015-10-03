@@ -1,0 +1,55 @@
+<%= render "search" %>
+
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Article Manager
+    </div>
+
+    <div class="panel-body">
+      <div class="text-right">
+        <%= paginate @article %>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Issue</th>
+              <th>Published</th>
+              <th colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @article.each do |article| %>
+              <tr>
+                <td><%= article.id %></td>
+                <td><%= article.title %></td>
+                <td><%= article.category_name %></td>
+                <td><%= article.issue.present? ? article.issue_number : '' %></td>
+                <td><%= article.published  %></td>
+                <td>
+                  <%= link_to "<i class='fa fa-eye'></i>".html_safe, admin_article_path(article), target: "blank" %>
+                </td>
+                <td>
+                  <%= link_to "<i class='fa fa-edit'></i>".html_safe, edit_admin_article_path(article) %>
+                </td>
+                <td>
+                  <%= link_to "<i class='fa fa-trash'></i>".html_safe, [:admin,article],
+                    data: { confirm: 'Are you sure?' }, method: :delete %>
+              </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-right">
+        <%= paginate @article, param_name: 'page' %>
+      </div>
+    </div>
+  </div>
+</div>

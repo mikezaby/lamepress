@@ -1,0 +1,57 @@
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $('a[href^="#tab_"]:first').tab('show');
+  </script>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <ul class="nav nav-tabs">
+      <% @group_banners.keys.each do |name| %>
+        <li>
+          <%= link_to name.capitalize, "\#tab_#{name.gsub(' ', '_')}",
+                      data: { toggle: "tab" } %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="panel panel-default tab-content">
+      <div class="panel-heading">
+        Banner Manager
+      </div>
+
+      <% @group_banners.each do |block_name, banners| %>
+        <div class="panel-body tab-pane fade" role="tabpanel" id="tab_<%= block_name.gsub(' ', '_') %>">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Describe</th>
+                  <th>Photo</th>
+                  <th colspan="2">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="js-sortable-list" data-url="<%= sorter_admin_banners_path(params:{ block_id: banners.first.block_id }) %>">
+                <% banners.each do |banner| %>
+                  <tr id="position_<%= banner.id %>">
+                    <td><%= banner.id %></td>
+                    <td><%= banner.describe %></td>
+                    <td><%= link_to "show", banner.photo.url, id: "single" %></td>
+                    <td>
+                      <%= link_to "<i class='fa fa-edit'></i>".html_safe, edit_admin_banner_path(banner) %>
+                    </td>
+                    <td>
+                      <%= link_to "<i class='fa fa-trash'></i>".html_safe, [:admin,banner],
+                        data: { confirm: 'Are you sure?' }, method: :delete %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

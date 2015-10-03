@@ -1,0 +1,65 @@
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      new IssueSelector({default_option: <%= @issue.try(:id) || 'null' %>});
+    });
+  </script>
+<% end %>
+
+<% if @setting.errors.any? %>
+  <h4 class="alert_warning"> Παρουσιαστηκαν τα εξείς λάθοι:
+    <ul>
+      <% @setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </h4>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Current Issue:
+        <b>
+          <% if @issue.present? %>
+            <%= @issue.number %>
+          <% else %>
+            Not setted
+          <% end %>
+        </b>
+      </div>
+
+      <div class="panel-body">
+        <div class="row">
+          <%= form_for [:admin,@setting] do |f| %>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= label_tag :year %>
+                <%= select_tag :year, @available_dates.year_options,
+                               class: "form-control js-year-selector" %>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= label_tag :month %>
+                <%= select_tag :month, @available_dates.month_options,
+                                class: "form-control js-month-selector" %>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= f.label :meta_value, "Issue" %>
+                <%= f.select :meta_value, [], {}, class: "form-control js-issue-selector" %>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <%= f.button "Set Issue", type: :submit, data: { confirm: "Are you sure?" }, class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

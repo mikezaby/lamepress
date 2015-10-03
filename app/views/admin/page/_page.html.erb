@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= head_title("#{@page.title} | #{$title}") %>
+  <%= description(@page.meta_description) %>
+  <%= cannonical_link("#{$domain}/page/#{@page.permalink}") %>
+<% end %>
+<div id="main-content">
+  <div id="article">
+    <h1 class="article"><%= @page.name %></h1>
+    <%= raw @page.content %>
+  </div>
+</div>

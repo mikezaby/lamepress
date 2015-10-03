@@ -1,0 +1,66 @@
+<% @categories = Category.all %>
+<% @pages = Page.all %>
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      function mode_selection() {
+        var cat_options="<option value=\"\">Select a category</option>";
+        <% @categories.each do |category| %>
+          <% selected = (category.id == @navigator.navigatable_id and @navigator.navigatable_type == "Category") ? "selected" : "" %>
+          cat_options+="<option <%= selected %> value=\"<%= category.id %>\"><%=h category.name %></option>";
+        <% end %>
+        var page_options="<option value=\"\">Select a page</option>";
+        <% @pages.each do |page| %>
+          <% selected = (page.id == @navigator.navigatable_id and @navigator.navigatable_type == "Page") ? "selected" : "" %>
+          page_options+="<option <%= selected %> value=\"<%= page.id %>\"><%=h page.permalink%></option>";
+        <% end %>
+        mode = $('select#navigator_navigatable_type').val();
+        if (mode == "Category") {
+          $('select#navigator_navigatable_id').html(cat_options);
+        }
+        else {
+          $('select#navigator_navigatable_id').html(page_options);
+        }
+      }
+      mode_selection();
+      $('select#navigator_navigatable_type').change(mode_selection);
+    });
+  </script>
+<% end %>
+
+<div class="panel-body">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: '/admin/partials/alerts', locals: { record: @navigator } %>
+
+      <%= form_for [:admin,@navigator], role: 'form' do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :block_id %>
+          <%= f.select :block_id, @navigator_blocks, { prompt: "Select a Block" }, { class: "form-control" } %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :position %>
+          <%= f.text_field :position, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label "Mode" %>
+          <%= f.select :navigatable_type, [["Category", "Category"],["Page", "Page"]], {}, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :navigatable_id %>
+          <%= f.select :navigatable_id, "", {}, class: 'form-control' %>
+        </div>
+
+        <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -7,5 +7,13 @@ module Lamepress
         end
       end
     end
+
+    initializer "lamepress.assets.precompile" do |app|
+      app.config.assets.precompile += %w(admin/all.css admin/all.js)
+    end
+
+    config.to_prepare do
+      require_dependency 'string'
+    end
   end
 end

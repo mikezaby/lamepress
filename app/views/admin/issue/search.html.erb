@@ -1,0 +1,50 @@
+<%= render "search" %>
+
+<div class="panel panel-default tab-content">
+  <div class="panel-heading">
+    Issue Manager
+  </div>
+
+  <div class="panel-body tab-pane fade active in" role="tabpanel" id="tab_issues">
+    <div class="text-right">
+      <%= paginate @issue %>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Number</th>
+            <th>Date</th>
+            <th>Cover</th>
+            <th>Pdf</th>
+            <th colspan="2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @issue.each do |issue| %>
+            <tr>
+              <td><%= issue.id %></td>
+              <td><%= issue.number %></td>
+              <td><%= issue.date %></td>
+              <td><%= link_to "show", issue.cover.url, target: "blank" %></td>
+              <td><%= link_to "show", issue.pdf.url, tatget: "blank" %></td>
+              <td>
+                <%= link_to "<i class='fa fa-edit'></i>".html_safe, edit_admin_issue_path(issue) %>
+              </td>
+              <td>
+                <%= link_to "<i class='fa fa-trash'></i>".html_safe, [:admin,issue],
+                  data: { confirm: 'Are you sure?' }, method: :delete %>
+            </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-right">
+      <%= paginate @issue %>
+    </div>
+  </div>
+</div>

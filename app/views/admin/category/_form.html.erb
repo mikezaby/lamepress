@@ -1,0 +1,43 @@
+<%= content_for :scripts do %>
+  <script type="text/javascript">
+    function order_articles_field() {
+      if ($("#category_issued").val()=="true") {
+        $(".js-order-articles").hide();
+      }
+      else {
+        $(".js-order-articles").show();
+      }
+    }
+    $(document).ready(function() {
+      order_articles_field();
+    });
+  </script>
+<% end %>
+
+<div class="panel-body">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: '/admin/partials/alerts', locals: { record: @category } %>
+
+      <%= form_for [:admin,@category], role: 'form' do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group js-order-articles">
+          <%= f.label "Order articles by date" %>
+          <%= f.select :order_articles, Category::ORDER_ARTICLES , {}, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :mode %>
+          <%= f.text_field :mode, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.select :issued, [["issued", true], ["not issued", false]], {},
+                       class: 'form-control', onchange: "order_articles_field();" %>
+        </div>
+        <%= f.submit nil, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

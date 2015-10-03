@@ -1,0 +1,44 @@
+<%= render(partial: 'search') %>
+
+<div class="row">
+  <div class="col-lg-6">
+    <%= form_for :ordering, url: { action: "update_issue" }, role: "form" do |f| %>
+      <div class="form-group">
+        <%= f.label "Issue  #{@issue.number} - Not ordered articles" %>
+        <%= f.select :id, @not_ordered, {}, { multiple: true, class: "form-control", style: 'height: 300px' } %>
+      </div>
+      <%= f.submit "Add to ordered", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel panel-default tab-content">
+      <div class="panel-heading">
+        Issue <%= @issue.number %>
+    </div>
+
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="js-sortable-list" data-url="<%= sorter_admin_orderings_path(params:{ what: 'issue' }) %>">
+          <% @ordered.each do |title, id| %>
+            <tr id="position_<%= id %>">
+              <td><%= id %></td>
+              <td><%= title %></td>
+              <td>
+                <%= link_to "<i class='fa fa-trash'></i>".html_safe, admin_ordering_path(id),
+                            data: { confirm: 'Are you sure?' }, method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</div>

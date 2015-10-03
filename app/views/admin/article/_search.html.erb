@@ -1,0 +1,25 @@
+<div class="row">
+<div class="col-lg-12">
+  <%= search_form_for [:admin, @q], url: search_admin_articles_path do |f| %>
+    <div class="form-group col-lg-3">
+      <%= f.text_field :title_cont, placeholder: "Title", class: "form-control" %>
+    </div>
+    <div class="form-group col-lg-2">
+      <%= f.text_field :issue_number_gteq, placeholder: "From Issue", class: "form-control" %>
+    </div>
+    <div class="form-group col-lg-2">
+      <%= f.text_field :issue_number_lteq, placeholder: "To Issue", class: "form-control" %>
+    </div>
+    <div class="form-group col-lg-3">
+      <%= f.select :category_id_eq, Category.order(:name).pluck(:name, :id),
+        { prompt: "Select a Category", include_blank: true }, class: "form-control" %>
+  </div>
+  <div class="form-group col-lg-2">
+    <%= f.select :published_eq, [["public", true], ["hidden", false]], {}, class: "form-control" %>
+  </div>
+  <div class="form-group col-lg-1">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
+</div>
+</div>
