@@ -12,6 +12,10 @@ module Lamepress
       app.config.assets.precompile += %w(admin/all.css admin/all.js)
     end
 
+    initializer "lamepress.configs" do |app|
+      app.config.lamepress = YAML.load_file("#{Rails.root}/config/lamepress.yml")
+    end
+
     config.to_prepare do
       require_dependency 'string'
     end
