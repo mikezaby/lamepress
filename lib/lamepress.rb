@@ -13,4 +13,5 @@ module Lamepress
   require "jquery-rails"
   require 'jquery-ui-rails'
   require 'handlebars_assets'
+  require 'fancybox-rails'
 end

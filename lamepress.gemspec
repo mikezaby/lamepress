@@ -28,5 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "ckeditor", "4.1.1"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
+  s.add_dependency "fancybox-rails"
   s.add_dependency "handlebars_assets"
 end
