@@ -1,12 +1,13 @@
-class ApplicationController < ::ApplicationController
-
-  protect_from_forgery
-
+class LamepressController < ::ApplicationController
   before_filter :fetch_url
 
-  $domain = LP_CONFIG["domain"]
-  $title = LP_CONFIG["title"]
-  $layout = Rails.env == "test" ? "demo" : LP_CONFIG["layout"]
+  $layout = Rails.application.config.lamepress["layout"]
+  $domain = Rails.application.config.lamepress["domain"]
+  $title = Rails.application.config.lamepress["title"]
+
+  if respond_to?(:helper)
+    helper LamepressHelper
+  end
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 

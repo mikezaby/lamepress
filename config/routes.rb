@@ -51,4 +51,24 @@ Rails.application.routes.draw do
       get "block_placements", on: :collection
     end
   end
+
+  root :to => 'article#home_issue'
+
+  get "search" => "search#index"
+  post "search/issue" => "search#issue"
+
+  get '/page/:perma' => 'page#show', as: "page"
+  get '/feed/:id' => 'article#feed', as: :category_feed
+
+  #isued articles
+  get '/issue/:number' => 'article#home_issue', as: 'home_issue'
+  get '/issue/:number/:name' => 'article#issued_category', as: 'issued_category'
+  get "/issue/:number/:name/:id.:title" => 'article#issued_article', as: 'issued_article'
+
+  #not issued articles
+  get '/:name(/page/:page)' => 'article#not_issued_category', as: 'not_issued_category'
+  get '/:name/:id.:title' => 'article#not_issued_article', as: 'not_issued_article'
+
+  match '*a', :to => 'application#render_404', via: [:get, :post, :put, :delete]
+
 end

@@ -1,4 +1,4 @@
-class Api::BaseController < ApplicationController
+class Api::BaseController < LamepressController
   def api_response(resource, options = {}, &block)
     status = options.fetch(:status, 200)
     error_status = options.fetch(:error_status, 422)

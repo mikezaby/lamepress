@@ -1,4 +1,4 @@
-class Admin::BaseController < ApplicationController
+class Admin::BaseController < LamepressController
 
   before_filter :authenticate_user!
 
