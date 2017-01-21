@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Lamepress</title>
+
+    <%= stylesheet_link_tag "admin/all", media: "all" %>
+
+    <%= csrf_meta_tag %>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <%= yield %>
+    </div>
+  </body>
+</html>
