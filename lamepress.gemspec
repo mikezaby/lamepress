@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Lamepress::VERSION
   s.authors     = ["mikezaby"]
   s.email       = ["mikezaby@gmail.com"]
-  s.homepage    = "ihttps://github.com/mikezaby/lamepress_engine"
+  s.homepage    = "https://github.com/mikezaby/lamepress"
   s.summary     = "Lamepress is a Content Managment System for issuing magazines/newspapers."
   s.description = "Lamepress is a Content Managment System for issuing magazines/newspapers."
   s.license     = "MIT"
