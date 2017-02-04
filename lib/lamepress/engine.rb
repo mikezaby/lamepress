@@ -13,11 +13,11 @@ module Lamepress
     end
 
     initializer "lamepress.configs" do |app|
-      Devise::SessionsController.layout "admin_login"
       app.config.lamepress = YAML.load_file("#{Rails.root}/config/lamepress.yml")
     end
 
     config.to_prepare do
+      Devise::SessionsController.layout "admin_login"
       require_dependency 'string'
     end
   end
