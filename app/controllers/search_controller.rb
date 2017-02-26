@@ -1,9 +1,8 @@
 class SearchController < ThemeController
   def index
     @issue = Setting.current_issue
-    @q = Article.search(params[:q], auth_object: nil)
+    @q = Article.includes(:category).search(params[:q], auth_object: nil)
     @article = @q.result.page(params[:page]).order("date DESC").per(10)
-    render action: :index
   end
 
   def issue
